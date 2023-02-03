@@ -1,15 +1,20 @@
 // Factorial
+
 #include <iostream>
 
-int main(){
-  int number, result=1;
+int my_factorial(int input){
+  int factorial = 1;
   
-  std::cout<<"Enter the number: ";
-  std::cin>>number;
-
-  for(int i = 0; i < number; i++){
-    result=result*(number-i);
+  for (int i = 0; i < input; i++){
+    factorial = factorial * (input-i);
   }
 
-  std::cout<<"The result is: "<<result;
+  return factorial;
+}
+
+int main(){
+  int number;
+  std::cout<<"Enter a number: ";
+  std::cin>>number;
+  std::cout<<"The factorial of "<< number << " is "<< my_factorial(number);
 }
