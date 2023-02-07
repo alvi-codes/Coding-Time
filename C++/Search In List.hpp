@@ -1,4 +1,4 @@
-// Search In An Ordered List
+// Search In List
 
 #include <iostream>
  
@@ -59,32 +59,15 @@ bool search_list(list_t e, ListNode* l){
     return search_list(e, l->next);
   }
 }
-
-// Search Ordered List
-bool search_ordered_list_rec(list_t e, ListNode* l){
-  if (l == NULL || l->val > e){
-    return false;
-  }
-  else{
-    if (l->val == e){
-      return true;
-    }
-    else{
-      return search_ordered_list_rec(e, l->next);
-    }
-  }
-}
-
-
  
 int main(){
     ListNode* l = NULL;
  
-    l = cons_list(9, l);
-    l = cons_list(3, l);
-    l = cons_list(6, l);    
-    l = cons_list(2, l);
     l = cons_list(1, l);
+    l = cons_list(2, l);
+    l = cons_list(3, l);
+    l = cons_list(4, l);
+    l = cons_list(5, l);
  
     print_list_rec(l);
 
@@ -93,7 +76,7 @@ int main(){
     std::cout<<"Enter the data to search for: ";
     list_t data;
     std::cin>>data;
-    std::cout<<"Ordered search result: "<<search_ordered_list_rec(data, l);
+    std::cout<<"Search result: "<<search_list(data, l);
  
     deallocate_list_rec(l);
 }
