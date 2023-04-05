@@ -20,7 +20,8 @@ I have also worked with advanced C++ features, such as:
 * File handling
 * Standard Template Library (STL)
 
-
+## **Visual Basic .NET Programs**
+The Visual Basic .NET folder contains my early projects and exercises in this programming language. VB.NET is an object-oriented, event-driven language developed by Microsoft as a successor to classic Visual Basic language, and is part of the .NET framework. I learned VB.NET as my first programming language and explored data structures, file handling, and OOP concepts. These projects showcase my understanding of the language and provide a reference for those interested in learning VB.NET.
 
 ## **Contribution**
 
