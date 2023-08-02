@@ -1,0 +1,51 @@
+////Version 1
+// class Solution {
+// public:
+//     vector<int> topKFrequent(vector<int>& nums, int k) {
+//         map<int, int> hash_table;
+//         for (int curr : nums) {
+//             hash_table[curr]++;
+//         }
+//         vector<int> result;
+//         for (int i = 0; i < k; i++) {
+//             int curr_max_val = 0;
+//             auto curr_max_row = hash_table.begin(); 
+//             for (auto it = hash_table.begin(); it != hash_table.end(); it++) {
+//                 if (it->second > curr_max_val) {
+//                     curr_max_val = it->second;
+//                     curr_max_row = it;
+//                 }
+//             }
+//             result.push_back(curr_max_row->first);
+//             hash_table.erase(curr_max_row->first); 
+//         }
+//         return result;
+//     }
+// };
+
+
+
+//Version 2
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int, int> hash_table;
+        for (int curr : nums) {
+            hash_table[curr]++;
+        }
+        vector<int> result;
+        for (int i = 0; i < k; i++) {
+            int curr_max_val = 0;
+            std::pair<int, int> curr_max_row;
+            for (auto it : hash_table) { 
+                if (it.second > curr_max_val) {
+                    curr_max_val = it.second;
+                    curr_max_row = it;
+                }
+            }
+            result.push_back(curr_max_row.first); 
+            hash_table.erase(curr_max_row.first); 
+        }
+        return result;
+    }
+};
