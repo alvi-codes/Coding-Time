@@ -1,0 +1,43 @@
+// //Attempt 1
+// class Solution {
+// public:
+//     bool isAnagram(string s, string t) {
+//         if (s.length() == t.length()){
+//             sort(s.begin(), s.end());
+//             sort(t.begin(), t.end());
+//             if(s == t){
+//                 return true;
+//             }
+//             return false;
+//         }
+//         else{
+//             return false;
+//         }     
+//     }
+// };
+
+
+//Attempt 2
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        unordered_map<char, int> char_count;
+
+        for(auto c: s){
+            char_count[c]++;
+        }
+
+        for(auto c: t){
+            char_count[c]--;
+        }
+
+        for (auto counts : char_count){
+            if (counts.second != 0){
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
