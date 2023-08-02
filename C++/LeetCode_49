@@ -1,0 +1,23 @@
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<std::string, std::vector<std::string>> hash_map;
+        std::string temp;
+
+        for (std::string word : strs){
+            temp = word;
+            sort(temp.begin(), temp.end());
+            hash_map[temp].push_back(word);
+        }
+
+        std::vector<std::vector<std::string>> result;
+
+        for (auto& key : hash_map){
+            result.push_back(key.second);
+        }
+
+        return result;
+
+    }
+};
