@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int, int> digit_count;
+        for(int digit : nums){
+            auto find = digit_count.find(digit);
+            if (find != digit_count.end()){
+                return true;
+            }
+            digit_count[digit]++;
+        }
+        return false;
+    }
+};
