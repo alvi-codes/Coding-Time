@@ -1,0 +1,40 @@
+
+// O(n^2) -- naive approach
+// class Solution {
+// public:
+//     vector<int> productExceptSelf(vector<int>& nums) {
+//         vector<int> results;
+//         for (int i = 0; i < nums.size(); i++){
+//             int prod = 1;
+//             for (int j = 0; j < nums.size(); j++){
+//                 if (i != j){
+//                     prod *= nums[j];
+//                 }
+//             }
+//             results.push_back(prod);
+//         }
+//         return results;     
+//     }
+// };
+
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> left, right, results;
+        int size = nums.size();
+        left.push_back(1);
+        for (int i = 1; i < size; i++){
+            left.push_back(nums[i-1]*left[i-1]);
+        }
+        right.push_back(1);
+        for (int i = size - 2; i >= 0; i--){
+            right.push_back(nums[i+1]*right[-(i - size + 2)]);
+        }
+
+        for (int i = 0; i < size; i++){
+            results.push_back(right[size - i - 1]*left[i]);
+        }
+        return results;
+    }
+};
