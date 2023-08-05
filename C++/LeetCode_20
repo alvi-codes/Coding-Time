@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        std::stack<char> stack_1;
+        for (int i = 0; i < s.size(); i++){
+            if ( s[i]=='(' || s[i]=='{' || s[i]=='[' ){
+                stack_1.push(s[i]);
+            }
+            else{
+                if( !stack_1.empty() && ((stack_1.top()=='(' && s[i]==')') || (stack_1.top()=='{' && s[i]=='}') || (stack_1.top()=='[' && s[i]==']')) ){
+                    stack_1.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+
+    return stack_1.empty();
+   
+
+        
+    }
+};
