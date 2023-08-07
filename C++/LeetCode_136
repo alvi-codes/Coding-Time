@@ -1,0 +1,44 @@
+// // Time: O(N)   Space: O(N)
+// class Solution {
+// public:
+//     int singleNumber(vector<int>& nums) {
+//         unordered_map<int, int> record;
+//         for (int i = 0; i < nums.size(); i++) {
+//             record[nums[i]] += 1;
+//         }
+//         for (int i = 0; i < nums.size(); i++) {
+//             if (record[nums[i]] == 1) {
+//                 return nums[i];
+//             }
+//         }
+//         return -1;
+//     }
+// };
+
+
+
+// // Time: O(NlogN)   Space: O(1)
+// class Solution {
+// public:
+//     int singleNumber(vector<int>& nums) { 
+//        sort(nums.rbegin(), nums.rend());
+//         for(int i = 0; i < nums.size()-1; i += 2) {
+//             if (nums[i] != nums[i + 1])
+//                 return nums[i];
+//         }
+//         return nums[nums.size() - 1];
+//     }
+// };
+
+
+
+// XOR Method :--  Time: O(N)   Space: O(1)
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) { 
+       int ans=0;
+	   for(auto x:nums)
+	   ans^=x;
+	   return ans;
+    }
+};
