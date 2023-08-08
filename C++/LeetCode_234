@@ -1,0 +1,65 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+//Way 1: Using Vector and Two Pointers
+// class Solution {
+// public:
+//     bool isPalindrome(ListNode* head) {
+//         vector<int> temp;
+//         while(head != NULL){
+//             temp.push_back(head->val);
+//             head = head->next;
+//         }
+//         int i = 0;
+//         int j = temp.size()-1;
+//         while (i < temp.size()/2){
+//             if(temp[i] != temp[j]){
+//                 return false;
+//             }
+//             i++;
+//             j--;
+//         }
+//         return true;
+//     }
+// };
+
+
+// Way 2: By Creating a Copy of the Reverseed List
+class Solution {
+public:
+    ListNode* reverse_list_copy(ListNode* head){
+        ListNode* original_curr = head;
+        ListNode* reversed;
+        ListNode* reversed_prev = NULL;
+        while(original_curr != NULL){
+            reversed = new ListNode();
+            reversed->val = original_curr->val;
+            reversed->next = reversed_prev;
+            reversed_prev = reversed;
+            original_curr = original_curr->next;
+        } 
+        return reversed_prev;
+    }
+
+    bool isPalindrome(ListNode* head) {
+        ListNode* rev_head = reverse_list_copy(head);
+        while(rev_head != NULL && head != NULL){
+            if (rev_head->val != head->val){
+                return false;
+            }
+            rev_head = rev_head->next;
+            head = head->next;
+        }
+        return true;
+    }
+};
+
+
