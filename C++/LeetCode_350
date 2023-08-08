@@ -26,16 +26,22 @@ public:
         sort(nums1.begin(),nums1.end());
         sort(nums2.begin(),nums2.end());
         vector<int>res;
-        int n=nums1.size(),m=nums2.size();
-        int i=0,j=0;
-        while(i<n && j<m) {
+        int vec1_size=nums1.size();
+        int vec2_size=nums2.size();
+        int i=0;
+        int j=0;
+        while(i<vec1_size && j<vec2_size) {
             if(nums1[i]==nums2[j]) {
                 res.push_back(nums1[i]);
                 i++;
                 j++;
             }
-            else if(nums1[i]<nums2[j]) i++;
-            else j++;
+            else if(nums1[i]<nums2[j]){
+                i++;
+            } 
+            else{ // meaning nums1[i] > nums2[j]
+                j++;
+            } 
         }
         return res;
     }
