@@ -1,0 +1,73 @@
+// // GIVES TLE ERROR
+// class Solution {
+// public:
+//     bool isHappy(int n) {
+//         if ( n > 0){
+//             std::string n_str = std::to_string(n);
+//             while(true){
+//                 int sum = 0;
+//                 for (int i = 0; i < n_str.size(); i++){
+//                     sum += std::pow(n_str[i]-'0', 2);    
+//                 }
+//                 if (sum == 1){
+//                     return true;
+//                 }
+//                 else if (sum > (std::pow(2,32) - 1)){
+//                     return false;
+//                 }
+//                 n_str = std::to_string(sum);
+//             }
+//         }
+//         return false;
+//     }
+// };
+
+// // Using SET and it works
+// class Solution {
+// public:
+//     bool isHappy(int n) {
+//         if ( n > 0){
+//             std::string n_str = std::to_string(n);
+//             std::set<int> seen;
+//             while(true){
+//                 int sum = 0;
+//                 for (int i = 0; i < n_str.size(); i++){
+//                     sum += std::pow(n_str[i]-'0', 2);    
+//                 }
+//                 if (sum == 1){
+//                     return true;
+//                 }
+//                 else if (seen.find(sum) != seen.end()){
+//                     return false;
+//                 }
+//                 seen.insert(sum);
+//                 n_str = std::to_string(sum);
+//             }
+//         }
+//         return false;
+//     }
+// };
+
+// Better way of getting the single digits
+// Using SET and it works
+class Solution {
+public:
+    bool isHappy(int n) {
+        std::set<int> seen;
+        while(true){
+            int sum = 0;
+            while(n != 0){
+                sum += std::pow(n % 10, 2); // SEE
+                n = n / 10;                 // SEE
+            }
+            if (sum == 1){
+                return true;
+            }
+            if (seen.find(sum) != seen.end()){
+                return false;
+            }
+            seen.insert(sum);
+            n = sum;
+        }
+    }
+};
