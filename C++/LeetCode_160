@@ -1,0 +1,67 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+
+
+// // Using set
+// // Time Complexity : O( max(m,n) )
+// // Space Complexity : O(m) for the set
+// class Solution {
+// public:
+//     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+//         set<ListNode*> seen_nodes;
+//         ListNode* temp_ptr;
+//         temp_ptr = headA;
+//         while(temp_ptr != NULL){
+//             seen_nodes.insert(temp_ptr);
+//             temp_ptr = temp_ptr->next;
+//         }
+//         temp_ptr = headB;
+//         while(temp_ptr != NULL){
+//             if(seen_nodes.find(temp_ptr) != seen_nodes.end()){
+//                 return temp_ptr;
+//             }
+//             temp_ptr = temp_ptr->next;
+//         }
+//         return NULL;       
+//     }
+// };
+
+
+
+// Nice approach using two pointers
+// Time Complexity : O( max(m,n) )
+// Space Complexity : O(1)
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* ptrA = headA;
+        ListNode* ptrB = headB;
+        while(ptrA != ptrB){
+            if (ptrA == NULL){
+                ptrA = headB;
+            }
+            else{
+                ptrA = ptrA->next;
+            }
+            if (ptrB == NULL){
+                ptrB = headA;
+            }
+            else{
+                ptrB = ptrB->next;
+            }
+        }
+        if (ptrA == NULL){
+            return NULL;
+        }
+        else{
+            return ptrA;
+        }
+    }
+};
