@@ -1,0 +1,23 @@
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        if (nums.empty()) {
+            return nullptr;
+        }
+
+        int mid_index = nums.size() / 2;
+        TreeNode* head = new TreeNode(nums[mid_index]);
+
+        if (mid_index > 0) {
+            vector<int> left_nums(nums.begin(), nums.begin() + mid_index);
+            head->left = sortedArrayToBST(left_nums);
+        }
+
+        if (mid_index + 1 < nums.size()) {
+            vector<int> right_nums(nums.begin() + mid_index + 1, nums.end());
+            head->right = sortedArrayToBST(right_nums);
+        }
+
+        return head;
+    }
+};
