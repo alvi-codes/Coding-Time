@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        std::string prefix = "";
+        sort(strs.begin(), strs.end());
+        int i = 0;
+        while(i < strs[0].size()){
+            char curr_letter = strs[0][i];
+            for (int j = 1; j < strs.size(); j++){
+                if (curr_letter != strs[j][i]){
+                    return prefix;
+                }
+            }
+            prefix += curr_letter;
+            i++;
+        } 
+        return prefix;
+    }
+};
+
+
+
+// Smart one!
+// Compares only first and last strings of the sorted array.
+// class Solution {
+// public:
+//     string longestCommonPrefix(vector<string>& str) {
+//         int n = str.size();
+//         if(n==0) return "";   
+//         string ans  = "";
+//         sort(begin(str), end(str));
+//         string a = str[0];
+//         string b = str[n-1];
+//         for(int i=0; i<a.size(); i++){
+//             if(a[i]==b[i]){
+//                 ans = ans + a[i];
+//             }
+//             else{
+//                 break;
+//             }
+//         }
+//         return ans;
+//     }
+// };
