@@ -1,0 +1,64 @@
+class Solution {
+public:
+
+    int rom_to_int(char c) {
+        switch(c) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                return 0;
+        }
+    }
+
+    int romanToInt(string s) {
+
+        if (s.size() == 1){
+            return rom_to_int(s[0]);
+        }
+
+        int result = 0;            
+
+        for(int i = 0, j = 1;    i < s.size();    i++, j++){
+            if (j < s.size()){
+                if(s[i] == 'I' && s[j] == 'V'){
+                    result += 4; i++; j++;
+                }
+                else if(s[i] == 'I' && s[j] == 'X'){
+                    result += 9; i++; j++;
+                }
+                else if(s[i] == 'X' && s[j] == 'L'){
+                    result += 40; i++; j++;          
+                }
+                else if(s[i] == 'X' && s[j] == 'C'){
+                    result += 90; i++; j++;
+                }
+                else if(s[i] == 'C' && s[j] == 'D'){
+                    result += 400; i++; j++;
+                }
+                else if(s[i] == 'C' && s[j] == 'M'){
+                    result += 900; i++; j++;
+                }
+                else{
+                    result += rom_to_int(s[i]);
+                }
+            }
+            else{
+                result += rom_to_int(s[i]);
+            }        
+        } 
+
+        return result;
+    }
+};
