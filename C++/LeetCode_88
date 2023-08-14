@@ -1,0 +1,52 @@
+// // Time: O( (m+n)log(m+n) )
+// // Space: O(1)
+// class Solution {
+// public:
+//     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+//         for (int i = m; i < nums1.size(); i ++){
+//             nums1[i] = nums2[i-m];
+//         }
+//         sort(nums1.begin(), nums1.end());
+//     }
+// };
+
+
+
+// // Time: O(m+n)
+// // Space: O(1)
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+
+        if(n>0 && m==0 ){
+            for (int i = 0; i < n; i++){
+                nums1[i] = nums2[i]; 
+            }
+        }
+
+        if (n>0 && m>0){
+            int tail_ptr = m + n - 1;
+            int m_ptr = m - 1;
+            int n_ptr = n - 1;
+
+            while(n_ptr >= 0 && m_ptr >= 0){
+                if (nums1[m_ptr] >= nums2[n_ptr]){
+                    nums1[tail_ptr] = nums1[m_ptr];
+                    m_ptr--;
+                }
+                else{
+                    nums1[tail_ptr] = nums2[n_ptr];
+                    n_ptr--;
+                }
+                tail_ptr--;
+            }
+
+            if(m_ptr < 0){
+                for(int i = 0; i < n_ptr + 1; i++){
+                    nums1[i] = nums2[i];
+                }
+            }
+        }
+
+    }
+};
