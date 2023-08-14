@@ -1,64 +1,96 @@
+// class Solution {
+// public:
+
+//     int rom_to_int(char c) {
+//         switch(c) {
+//             case 'I':
+//                 return 1;
+//             case 'V':
+//                 return 5;
+//             case 'X':
+//                 return 10;
+//             case 'L':
+//                 return 50;
+//             case 'C':
+//                 return 100;
+//             case 'D':
+//                 return 500;
+//             case 'M':
+//                 return 1000;
+//             default:
+//                 return 0;
+//         }
+//     }
+
+//     int romanToInt(string s) {
+//         if (s.size() == 1){
+//             return rom_to_int(s[0]);
+//         }
+//         int result = 0;            
+//         for(int i = 0, j = 1;    i < s.size();    i++, j++){
+//             if (j < s.size()){
+//                 if(s[i] == 'I' && s[j] == 'V'){
+//                     result += 4; i++; j++;
+//                 }
+//                 else if(s[i] == 'I' && s[j] == 'X'){
+//                     result += 9; i++; j++;
+//                 }
+//                 else if(s[i] == 'X' && s[j] == 'L'){
+//                     result += 40; i++; j++;          
+//                 }
+//                 else if(s[i] == 'X' && s[j] == 'C'){
+//                     result += 90; i++; j++;
+//                 }
+//                 else if(s[i] == 'C' && s[j] == 'D'){
+//                     result += 400; i++; j++;
+//                 }
+//                 else if(s[i] == 'C' && s[j] == 'M'){
+//                     result += 900; i++; j++;
+//                 }
+//                 else{
+//                     result += rom_to_int(s[i]);
+//                 }
+//             }
+//             else{
+//                 result += rom_to_int(s[i]);
+//             }        
+//         } 
+//         return result;
+//     }
+// };
+
+
+///-----------------------------------------------------------///
+
+
+// Another NICE way!
 class Solution {
 public:
-
-    int rom_to_int(char c) {
-        switch(c) {
-            case 'I':
-                return 1;
-            case 'V':
-                return 5;
-            case 'X':
-                return 10;
-            case 'L':
-                return 50;
-            case 'C':
-                return 100;
-            case 'D':
-                return 500;
-            case 'M':
-                return 1000;
-            default:
-                return 0;
-        }
-    }
-
     int romanToInt(string s) {
+        unordered_map<char, int> m;
+        m['I'] = 1;
+        m['V'] = 5;
+        m['X'] = 10;
+        m['L'] = 50;
+        m['C'] = 100;
+        m['D'] = 500;
+        m['M'] = 1000;
 
-        if (s.size() == 1){
-            return rom_to_int(s[0]);
-        }
-
-        int result = 0;            
-
-        for(int i = 0, j = 1;    i < s.size();    i++, j++){
-            if (j < s.size()){
-                if(s[i] == 'I' && s[j] == 'V'){
-                    result += 4; i++; j++;
-                }
-                else if(s[i] == 'I' && s[j] == 'X'){
-                    result += 9; i++; j++;
-                }
-                else if(s[i] == 'X' && s[j] == 'L'){
-                    result += 40; i++; j++;          
-                }
-                else if(s[i] == 'X' && s[j] == 'C'){
-                    result += 90; i++; j++;
-                }
-                else if(s[i] == 'C' && s[j] == 'D'){
-                    result += 400; i++; j++;
-                }
-                else if(s[i] == 'C' && s[j] == 'M'){
-                    result += 900; i++; j++;
-                }
-                else{
-                    result += rom_to_int(s[i]);
-                }
+        int ans = 0;
+        for(int i = 0; i < s.length(); i++){ //see discussion below
+            if(m[s[i]] < m[s[i+1]]){//sus here, as for "X", index i+1 doesn't exist 
+                ans -= m[s[i]]; //but good subtraction logic
             }
             else{
-                result += rom_to_int(s[i]);
-            }        
-        } 
-
-        return result;
+                ans += m[s[i]];
+            }
+        }
+        return ans;
     }
 };
+
+// In C++, accessing an element outside the bounds of a standard string or an array does not throw an exception but leads to undefined behavior, meaning that the program's behavior is unpredictable and can vary between different compilers or even different runs of the same program.
+
+// If the key s[i+1] doesn't exist in the unordered map m, the operator [] will return a reference to the value that is mapped to a new element inserted in m with that key s[i+1], which will be value-initialized, i.e., zero for an integer. So, in this case, the condition m[s[i]] < m[s[i+1]] will be false for i+1 outside the bounds of the string or when s[i+1] doesn't correspond to a Roman numeral.
+
+// However, relying on this behavior is not safe and could lead to problems. 
