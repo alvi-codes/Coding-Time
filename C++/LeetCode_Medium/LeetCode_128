@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        std::unordered_set<int> unique_nums(nums.begin(), nums.end());
+        int longest_seq = 0;
+        for (int num : unique_nums) {
+            if (unique_nums.find(num - 1) == unique_nums.end()) {
+                int curr_val = num;
+                int curr_seq = 1;
+                while (unique_nums.find(curr_val + 1) != unique_nums.end()) {
+                    curr_val++;
+                    curr_seq++;
+                }
+                longest_seq = std::max(longest_seq, curr_seq);
+            }
+        }
+        return longest_seq;
+    }
+};
