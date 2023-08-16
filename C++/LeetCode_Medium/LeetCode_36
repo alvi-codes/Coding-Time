@@ -1,0 +1,71 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+
+        std::unordered_set<int> curr_row, curr_coloumn;
+
+        for (int row = 0; row < 9; row++){     
+            for (int col = 0; col < 9; col++){         
+                if ( isdigit(board[row][col]) ){
+                    if (curr_row.find(board[row][col]) != curr_row.end()){
+                        return false;
+                    }
+                    else{
+                       curr_row.insert(board[row][col]); 
+                    }
+                }       
+            }
+            curr_row.clear();
+        } 
+
+        for (int col = 0; col < 9; col++){     
+            for (int row = 0; row < 9; row++){         
+                if ( isdigit(board[row][col]) ){
+                    if (curr_coloumn.find(board[row][col]) != curr_coloumn.end()){
+                        return false;
+                    }
+                    else{
+                       curr_coloumn.insert(board[row][col]); 
+                    }
+                }       
+            }
+            curr_coloumn.clear();
+        }
+
+        // std::unordered_set<int>  curr_box;
+        // for (int row = 0; row < 9; row += 3) {
+        //     for (int col = 0; col < 9; col += 3) {
+        //         for (int i = 0; i < 3; i++) {
+        //             for (int j = 0; j < 3; j++) {
+        //                 if (isdigit(board[row + i][col + j])) {
+        //                     if (curr_box.find(board[row + i][col + j]) != curr_box.end()){
+        //                         return false;
+        //                     }
+        //                     else{
+        //                     curr_box.insert(board[row + i][col + j]); 
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         curr_box.clear();
+        //     }
+        // }
+
+        std::unordered_map<int, std::unordered_set<int>> sub_boxes;
+        for (int row = 0; row < 9; row++){
+            for (int col = 0; col < 9; col++){
+                if ( isdigit(board[row][col]) ){
+                   int box_id = (row/3 * 10) + (col/3); // custom formula to create an UID for each sub-box
+                   if ( sub_boxes[box_id].find(board[row][col]) != sub_boxes[box_id].end() ){
+                       return false;
+                   }
+                   else{
+                       sub_boxes[box_id].insert(board[row][col]);
+                   }
+                }
+            }
+        }
+
+        return true;
+    }
+};
