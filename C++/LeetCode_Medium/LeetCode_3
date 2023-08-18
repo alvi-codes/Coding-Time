@@ -1,0 +1,55 @@
+// class Solution {
+// public:
+//     int lengthOfLongestSubstring(string s) {
+//         int max_len = 1;
+//         std::string str;
+//         std::set<char> set;
+//         if (s.size() < 2){
+//             return s.size();
+//         }
+//         for (int i = 0; i < s.size() - 1; i++){
+//             int j = i + 1;
+//             str = "";
+//             str += s[i];
+//             set.insert(s[i]);
+//             while ( j < s.size() ){
+//                 if(set.find(s[j]) != set.end()){
+//                     break;
+//                 }
+//                 set.insert(s[j]);
+//                 str += s[j];
+//                 if (str.size() > max_len){
+//                     max_len = str.size();
+//                 }
+//                 j++;
+//             }
+//             set.clear();
+//         }
+//         return max_len;
+//     }
+// };
+
+
+
+
+
+// Sliding Window
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        std::unordered_set<char> set;
+        int left_ptr = 0;
+        int max_len = 0;
+
+        for (int right_ptr = 0; right_ptr < s.size(); right_ptr++){
+            while ( set.find(s[right_ptr]) != set.end() ){
+                set.erase(s[left_ptr]);
+                left_ptr++;
+            }
+            set.insert(s[right_ptr]);
+            max_len = max(max_len, right_ptr - left_ptr + 1);
+        }
+
+        return max_len;
+    }
+};
