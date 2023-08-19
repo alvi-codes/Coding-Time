@@ -1,0 +1,30 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+
+        if (head == nullptr) {
+            return nullptr;
+        }
+
+        ListNode* dummy = new ListNode(); // Create a dummy node to handle edge cases
+        dummy->next = head;
+        ListNode* prev_ptr = dummy;
+        ListNode* tail_ptr = dummy;
+
+        // Advance the tail_ptr by n+1 steps
+        for (int i = 0; i <= n; i++) {
+            tail_ptr = tail_ptr->next;
+        }
+
+        // Move both pointers until tail_ptr reaches the end
+        while (tail_ptr != nullptr) {
+            prev_ptr = prev_ptr->next;
+            tail_ptr = tail_ptr->next;
+        }
+
+        // Skip the nth node from the end
+        prev_ptr->next = prev_ptr->next->next;
+
+        return dummy->next; // Return the modified list starting from the actual head
+    }
+};
