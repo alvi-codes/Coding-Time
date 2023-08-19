@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int longestSubstring(string s, int k) {
+
+        std::unordered_map<char, int> hash_map;
+
+        for (int i = 0; i < s.size(); i++){
+            hash_map[s[i]]++;
+        }
+
+        int ptr = 0;
+        while(ptr < s.size() && hash_map[s[ptr]] >= k){
+            ptr++;
+        }
+        
+        if(ptr == s.size()){
+            return s.size();
+        }
+
+        int right = longestSubstring(s.substr(0, ptr), k);
+        int left = longestSubstring(s.substr(ptr+1, s.size()-ptr-1), k);
+        return max(right, left);
+    }
+};
