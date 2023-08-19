@@ -1,0 +1,76 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+//very nice way, but uses hashmap, so extra space needed, see later one as well
+// class Solution {
+// public:
+//     Node* copyRandomList(Node* head) {
+//         std::unordered_map<Node*, Node*> node_map;
+//         Node* ptr = head;
+//         //creating the new unrouted list elements
+//         while(ptr != nullptr){
+//             Node* temp = new Node(ptr->val);
+//             node_map[ptr] = temp;
+//             ptr = ptr->next;
+//         }
+//         ptr = head;
+//         //routing the new list elements
+//         while(ptr != nullptr){
+//             node_map[ptr]->next = node_map[ptr->next];
+//             node_map[ptr]->random = node_map[ptr->random];
+//             ptr = ptr->next;
+//         }
+//         return node_map[head];
+//     }
+// };
+
+
+
+//re-watch second half of TUF's YouTube video to understand this
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return nullptr;  // handle empty list
+        Node* ptr = head;
+        // Create new list elements putting them within the old list
+        while (ptr != nullptr) {
+            Node* temp = new Node(ptr->val);
+            temp->next = ptr->next;
+            ptr->next = temp;
+            ptr = temp->next;  // move two steps
+        }
+        ptr = head;
+        // Set random pointers for the new nodes
+        while (ptr != nullptr) {
+            if (ptr->random != nullptr) {
+                ptr->next->random = ptr->random->next;
+            }
+            ptr = ptr->next->next;  // move two steps
+        }
+        Node* oldList = head;
+        Node* newList = head->next;
+        Node* copyListHead = head->next;
+        // Restore original list and set next pointers for new nodes
+        while (oldList != nullptr) {
+            oldList->next = oldList->next->next;
+            if (newList->next != nullptr) {
+                newList->next = newList->next->next;
+            }
+            oldList = oldList->next;
+            newList = newList->next;
+        }
+        return copyListHead;
+    }
+};
