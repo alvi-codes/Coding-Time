@@ -5,7 +5,6 @@ public:
     int val;
     Node* next;
     Node* random;
-    
     Node(int _val) {
         val = _val;
         next = NULL;
@@ -13,6 +12,8 @@ public:
     }
 };
 */
+
+
 
 //very nice way, but uses hashmap, so extra space needed, see later one as well
 // class Solution {
