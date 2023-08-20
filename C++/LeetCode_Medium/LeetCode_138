@@ -40,10 +40,13 @@ public:
 
 
 //re-watch second half of TUF's YouTube video to understand this
+//does not use any extra memory such as a hashmap
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if (!head) return nullptr;
+        if (head == nullptr){
+            return nullptr;
+        }
         
         Node* ptr = head;
         // Step 1: Interleave the original list with copied nodes.
@@ -57,22 +60,28 @@ public:
         // Step 2: Adjust the random pointers for the copied nodes.
         ptr = head;
         while (ptr != nullptr) {
-            if (ptr->random) {
+            if (ptr->random != nullptr) {
                 ptr->next->random = ptr->random->next;  // Point to the copied node.
+            }
+            else{
+                ptr->next->random = nullptr;
             }
             ptr = ptr->next->next;  // Move to the next original node.
         }
 
         // Step 3: Separate the interleaved list into original and copied lists.
-        Node* copiedHead = head->next;
-        Node* copied = copiedHead;
         ptr = head;
+        Node* copiedHead = head->next;
+        Node* copy_ptr = copiedHead;
         while (ptr != nullptr) {
-            ptr->next = ptr->next->next;
-            if (copied->next) copied->next = copied->next->next;
+            ptr->next = copy_ptr->next;
+            if (copy_ptr->next != nullptr){
+                copy_ptr->next = ptr->next->next;
+            }
             ptr = ptr->next;
-            copied = copied->next;
+            copy_ptr = copy_ptr->next;
         }
+
         return copiedHead;
     }
 };
