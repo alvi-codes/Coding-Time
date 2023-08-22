@@ -1,1 +1,104 @@
+// class Solution {
+// public:
+//     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 
+//         ListNode* sumHead = new ListNode();
+
+//         ListNode* ptr = sumHead;
+
+//         bool carryFlag = false;
+
+//         ListNode* prev;
+
+//         while(l1 != nullptr || l2 != nullptr){
+//             prev = ptr;
+
+//             if (l1 != nullptr && l2 != nullptr){
+//                 ptr->val = l1->val + l2->val;
+//                 l1 = l1->next;
+//                 l2 = l2->next;
+//             }
+//             else if (l1 == nullptr && l2 != nullptr){
+//                 ptr->val = 0 + l2->val;
+//                 l2 = l2->next;
+//             }
+//             else{
+//                 ptr->val = l1->val + 0;
+//                 l1 = l1->next;   
+//             }
+
+//             if (carryFlag == true){
+//                 ptr->val = ptr->val + 1;
+//                 carryFlag = false;
+//             }
+
+//             if (ptr->val > 9){
+//                 ptr->val = ptr->val % 10;
+//                 carryFlag = true;
+//             }
+
+//             ptr->next = new ListNode();
+
+//             ptr = ptr->next;
+//         }
+
+//         if (carryFlag == true){
+//             ptr->val = 1;
+//         }
+//         else{
+//             prev->next = nullptr;
+//         }
+
+//         return sumHead;    
+//     }
+// };
+
+
+
+
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* head = new ListNode(); //new list;
+        ListNode* temp = head;
+        
+        int c = 0;
+
+		//traversing lists till two of the list reaches NULL
+        while (l1 != NULL ||  l2 != NULL || c)
+        {
+            int sum = 0;
+			// if l1  is not null
+			// add l1-> value to sum
+            if(l1 != NULL)
+            {
+                sum += l1->val;
+                l1 = l1 -> next;
+            }
+            
+			// if l2  is not null
+			// add l2-> value to sum
+            if(l2 != NULL)
+            {
+                sum += l2->val;
+                l2 = l2 -> next;
+            }
+            
+			// add carry to sum
+            sum += c;
+
+			// carry is updated by sum/10 because for 18 , 
+			// 18 / 10 is 1 which is the carry
+            c = sum/10;
+
+			// add sum % 10 to new node as it containg the sum
+            ListNode *node = new ListNode(sum%10);
+
+            temp -> next = node;
+            temp = temp -> next;
+        }
+
+        return head -> next;
+    }
+};
