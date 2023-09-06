@@ -7,9 +7,7 @@ public:
 
         if (root->val <= min || root->val >= max) return false;
 
-        if (check_BST(min, root->val, root->left) && check_BST(root->val, max, root->right)) return true;
-
-        return false;
+        return check_BST(min, root->val, root->left) && check_BST(root->val, max, root->right);
     }
 
 
