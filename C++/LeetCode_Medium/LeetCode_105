@@ -1,0 +1,35 @@
+class Solution {
+public:
+
+    void helper(TreeNode*& head, vector<int>& preorder, int pre_start, int pre_end, vector<int>& inorder, int in_start, int in_end, unordered_map<int, int>& val_index_map) {
+
+        if (pre_start > pre_end || in_start > in_end) return;
+
+        int curr_node = preorder[pre_start];
+        head = new TreeNode(curr_node);
+
+        int index = val_index_map[curr_node];
+        
+        int left_size = index - in_start;
+        int right_size = in_end - index;
+
+        helper(head->left, preorder, pre_start + 1, pre_start + left_size, inorder, in_start, index - 1, val_index_map);
+        helper(head->right, preorder, pre_start + left_size + 1, pre_end, inorder, index + 1, in_end, val_index_map);
+    }
+
+
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+
+        unordered_map<int, int> val_index_map;
+
+        for (int i = 0; i < inorder.size(); i++) {
+            val_index_map[inorder[i]] = i;
+        }
+
+        TreeNode* head = nullptr;
+        helper(head, preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1, val_index_map);
+
+        return head;
+    }
+};
