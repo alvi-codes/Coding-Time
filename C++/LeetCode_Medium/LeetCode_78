@@ -1,0 +1,42 @@
+class Solution {
+public:
+    // Recursive backtracking function to generate subsets
+    void recurse(vector<int>& nums, int n, int index, vector<int>& temp, vector<vector<int>>& result){
+        // Base case: if we've made decisions for all numbers, add current subset to results
+        if (index == n){
+            result.push_back(temp);
+            return;
+        }
+
+        // First recursive call: Exclude current number (nums[index]) from subset
+        recurse(nums, n, index + 1, temp, result);
+
+        // Include current number in subset
+        temp.push_back(nums[index]);
+        
+        // Second recursive call: After including current number in subset
+        recurse(nums, n, index + 1, temp, result);
+        
+        // Backtrack: Remove the last added number, undoing the previous decision
+        temp.pop_back();
+        return;
+    }
+
+
+
+    // Main function to initiate recursive generation of subsets
+    vector<vector<int>> subsets(vector<int>& nums) {
+        // Result to store all subsets
+        vector<vector<int>> result;
+        
+        // Temporary subset which will be filled during backtrhacking
+        vector<int> temp;
+        
+        int n = nums.size();
+
+        // Start backtracking with the first number
+        recurse(nums, n, 0, temp, result);
+        
+        return result;    
+    }
+};
