@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+    void backtracking_machine(vector<vector<char>>& board, string& word, bool& word_found, int i, int j, int letter, string& temp){
+
+        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || board[i][j] != word[letter] || word_found){
+            return;
+        }
+
+        temp += board[i][j];
+        char hold = board[i][j];
+        board[i][j] = 'X';
+
+        if (temp == word){
+            word_found = true;
+            return;
+        }
+
+        backtracking_machine(board, word, word_found, i + 1, j, letter + 1, temp);
+        backtracking_machine(board, word, word_found, i - 1, j, letter + 1, temp);
+        backtracking_machine(board, word, word_found, i, j + 1, letter + 1, temp);
+        backtracking_machine(board, word, word_found, i, j - 1, letter + 1, temp);
+
+        board[i][j] = hold;
+        temp.pop_back();
+    }
+
+
+
+    bool exist(vector<vector<char>>& board, string word) {
+        bool word_found = false;
+        string temp = "";
+
+        for(int i = 0; i < board.size(); ++i) {
+            for(int j = 0; j < board[0].size(); ++j) {
+                if(board[i][j] == word[0]) {
+                    backtracking_machine(board, word, word_found, i, j, 0, temp);
+                    if(word_found) return true; // Early exit if word is found
+                }
+            }
+        }
+        
+        return word_found;
+    }
+};
