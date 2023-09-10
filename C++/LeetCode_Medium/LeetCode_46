@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    void recurse(vector<int>& nums, vector<int>& temp, unordered_set<int>& existing, vector<vector<int>>& result){
+
+        if (temp.size() == nums.size()){
+            result.push_back(temp);
+            return;
+        }
+
+        for (int i = 0; i < nums.size(); i++){
+            if (existing.find(nums[i]) != existing.end()){
+                continue;
+            }
+
+            temp.push_back(nums[i]);
+            existing.insert(nums[i]);
+
+            recurse(nums, temp, existing, result);
+
+            temp.pop_back();
+            existing.erase(nums[i]);
+        }
+    }
+
+    
+
+    vector<vector<int>> permute(vector<int>& nums) {
+
+        vector<int> temp;
+        vector<vector<int>> result;
+        unordered_set<int> existing;
+
+        recurse(nums, temp, existing, result);
+
+        return result;        
+    }
+};
