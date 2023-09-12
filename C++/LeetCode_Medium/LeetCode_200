@@ -1,0 +1,68 @@
+class Solution {
+public:
+
+    void check_neighbour(int i, int j, queue<pair<int, int>>& q, vector<vector<char>>& visited_grid, vector<vector<char>>& grid){
+        if (i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size()){
+            return;
+        }
+
+        if (grid[i][j] == '0' || visited_grid[i][j] == 'V'){
+            return;
+        }
+
+        q.push(make_pair(i, j));
+        visited_grid[i][j] = 'V';
+    }
+
+    void do_bfs(queue<pair<int, int>>& q, vector<vector<char>>& visited_grid, vector<vector<char>>& grid){
+
+        while (q.empty() == false){
+            pair<int, int> index = q.front();
+
+            int i = index.first;
+            int j = index.second;
+
+            // check_neighbour(i + 1, j, q, visited_grid, grid); // Down
+            // check_neighbour(i - 1, j, q, visited_grid, grid); // Up
+            // check_neighbour(i, j + 1, q, visited_grid, grid); // Right
+            // check_neighbour(i, j - 1, q, visited_grid, grid); // Left
+
+            vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};  // Down, Up, Right, Left
+
+            for (auto& dir : directions) {
+                check_neighbour(i + dir.first, j + dir.second, q, visited_grid, grid);
+            }
+
+            q.pop();
+        }     
+    }
+
+
+
+    int numIslands(vector<vector<char>>& grid) {
+
+        int rows = grid.size();
+        int cols = grid[0].size();
+
+        vector<vector<char>> visited_grid(rows, vector<char> (cols, '0'));
+
+        int islands = 0;
+
+        queue<pair<int, int>> q;
+
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                if (grid[i][j] == '0' || visited_grid[i][j] == 'V'){
+                    continue;
+                }
+                else{
+                    q.push(make_pair(i, j));
+                    do_bfs(q, visited_grid, grid);
+                    islands++;
+                }    
+            }
+        }
+
+        return islands;        
+    }
+};
