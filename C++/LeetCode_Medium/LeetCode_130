@@ -1,6 +1,42 @@
 class Solution {
 public:
 
+    bool do_bfs(int i, int j, vector<vector<char>>& board, set<pair<int, int>>& indexes) {
+        queue<pair<int, int>> q;
+        q.push({i, j});
+        indexes.insert({i, j});  // Ensuring the initial cell is considered.
+        bool isSurrounded = true;
+        
+        vector<vector<int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        
+        while (!q.empty()) {
+            pair<int, int> current = q.front();
+            q.pop();
+
+            for (auto& dir : directions) {
+                int x = current.first + dir[0];
+                int y = current.second + dir[1];
+                
+                // Check boundary conditions
+                if (x < 0 || x >= board.size() || y < 0 || y >= board[0].size()) {
+                    continue;
+                }
+
+                // If it's an edge 'O', then the region is not surrounded
+                if ((x == 0 || x == board.size() - 1 || y == 0 || y == board[0].size() - 1) && board[x][y] == 'O') {
+                    isSurrounded = false;
+                }
+                
+                if (board[x][y] == 'O' && indexes.find({x, y}) == indexes.end()) {
+                    indexes.insert({x, y});
+                    q.push({x, y});
+                }
+            }
+        }
+        
+        return isSurrounded;
+    }
+
     bool do_dfs(int i, int j, vector<vector<char>>& board, set<pair<int, int>>& indexes) {
         // If out of bounds, return true
         if (i >= board.size() || i < 0 || j >= board[0].size() || j < 0) {
@@ -33,6 +69,8 @@ public:
         }
     }
 
+    
+
     void solve(vector<vector<char>>& board) {
         int rows = board.size();
         if (rows == 0) {
@@ -47,7 +85,7 @@ public:
 
                 if (board[i][j] == 'O' && indexes.find(make_pair(i, j)) == indexes.end()) { 
                     // Check if the cell hasn't been visited
-                    if (do_dfs(i, j, board, indexes)) {
+                    if (do_dfs(i, j, board, indexes) && do_bfs(i, j, board, indexes)) {
                         make_x(indexes, board);
                     }
                     indexes.clear();
