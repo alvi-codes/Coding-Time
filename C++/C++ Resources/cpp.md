@@ -93,6 +93,166 @@ The string is alphanumeric.
 </ul>
 </details>
 
+<details>
+<summary>Substring</summary>
+<ul>
+
+A substring is a part of a string. You can extract a substring using the `substr()` function of the `std::string` class. Here's a concise example:
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string fullString = "Hello, World!";
+    
+    // Extract a substring from position 7 to the end.
+    std::string substring1 = fullString.substr(7);
+    std::cout << "Substring 1: " << substring1 << std::endl;
+
+    // Extract a substring from position 0 with a length of 5 characters.
+    std::string substring2 = fullString.substr(0, 5);
+    std::cout << "Substring 2: " << substring2 << std::endl;
+
+    return 0;
+}
+```
+This code demonstrates how to use `substr()` to create substrings starting from specific positions in a string, with or without specifying a length.
+
+Time Complexity: <br>
+`substr()` has a time complexity of O(k), where k is the length of the extracted substring. It scales linearly with the substring size.
+
+</ul>
+</details>
+
+<details>
+<summary>Power</summary>
+<ul>
+
+We can calculate the power of a number using the `pow()` function from the `<cmath>` library.
+
+It takes two arguments: the base and the exponent, and returns the result.
+ 
+Here's a concise example:
+
+```cpp
+#include <iostream>
+#include <cmath>
+
+int main() {
+    double base = 2.0;
+    double exponent = 3.0;
+    double result = pow(base, exponent);
+    std::cout << base << "^" << exponent << " = " << result << std::endl;
+    return 0;
+}
+```
+This code calculates and prints the result of 2^3, which is 8.
+
+Time Complexity: <br>
+`pow()` typically has a time complexity of O(log n), where n is the exponent.  It is efficient for integer exponents, but can be less efficient for non-integer exponents due to complex calculations. Compiler and library optimizations may affect the actual time complexity.
+</ul>
+</details>
+
+<!-- <details>
+<summary>Power</summary>
+<ul>
+
+</ul>
+</details> -->
+
+<details>
+<summary>String to Int</summary>
+<ul>
+
+In C++, `stoi` is a standard library function used to convert a string to an integer. It's particularly useful when you need to work with numeric values from user input or strings read from files. Here's a simple example:
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string numStr = "42"; // A string containing a numeric value
+    
+    // Using stoi to convert the string to an integer
+    int num = std::stoi(numStr);
+
+    std::cout << "The integer value is: " << num << std::endl;
+    
+    return 0;
+}
+```
+
+In this example, the string `"42"` is converted to the integer `42` using `std::stoi`, allowing you to work with the numeric value as an integer in your program.
+
+</ul>
+</details>
+
+
+<details>
+<summary>Int to String</summary>
+<ul>
+
+In C++, `std::to_string` is a standard library function used to convert an integer to a string. It's useful when you need to convert an integer to a string for purposes like concatenation or displaying the integer as part of a larger string.
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    int num = 42; // An integer
+    
+    // Using std::to_string to convert the integer to a string
+    std::string numStr = std::to_string(num);
+
+    std::cout << "The string representation is: " << numStr << std::endl;
+    
+    return 0;
+}
+```
+
+In this example, the integer `42` is converted to the string `"42"` using `std::to_string`, allowing you to work with the integer as a string in your program.
+
+</ul>
+</details>
+
+<!-- <details>
+<summary>Power</summary>
+<ul>
+
+</ul>
+</details> -->
+
+
+<details>
+<summary>Char to Int</summary>
+<ul>
+
+In C++, you can convert a character to an integer by using type casting. This allows you to get the numeric value of the character based on its ASCII value.
+
+```cpp
+#include <iostream>
+
+int main() {
+    char charValue = '5'; // A character
+    
+    // Using type casting to convert the character to an integer
+    int intValue = charValue - '0';
+
+    std::cout << "The integer value is: " << intValue << std::endl;
+    
+    return 0;
+}
+```
+
+In this example, the character `'5'` is converted to the integer `5` by subtracting the ASCII value of `'0'`. This technique works for converting characters that represent digits (0-9) to their corresponding integer values.
+
+</ul>
+</details>
+
+
+
+
 
 </details>
 
@@ -180,7 +340,89 @@ The string is alphanumeric.
 - **`erase(iterator position)`**: Remove element at the specified position.
 
 ---
+### Inserting New Value In-front or In-between:
 
+  Use member `insert(iterator position, const Type &value)` to insert elements at the specified position.
+
+
+- **Insert an element at the beginning of a vector**:
+
+  ```cpp
+  #include <iostream>
+  #include <vector>
+
+  int main() {
+      std::vector<int> myVector = {2, 3, 4};
+
+      // Insert an element at the beginning
+      myVector.insert(myVector.begin(), 1);
+
+      for (int num : myVector) {
+          std::cout << num << " ";
+      }
+
+      return 0;
+  }
+  ```
+
+  Resultant Output:
+  ```
+  1 2 3 4
+  ```
+
+- **Insert an element in front of index 5 of a vector**:
+
+  ```cpp
+  #include <iostream>
+  #include <vector>
+
+  int main() {
+      std::vector<int> anotherVector = {0, 1, 2, 3, 4, 5, 6};
+      
+      // Insert an element in front of index 5
+      int newValue = 42;
+      anotherVector.insert(anotherVector.begin() + 5, newValue);
+
+      for (int num : anotherVector) {
+          std::cout << num << " ";
+      }
+
+      return 0;
+  }
+  ```
+
+  Resultant Output:
+  ```
+  0 1 2 3 4 42 5 6
+  ```
+
+  **Insert an entire vector**:
+    
+  ```cpp
+  #include <iostream>
+  #include <vector>
+
+  int main() {
+      std::vector<int> existingVector = {1, 2, 3};
+      std::vector<int> toAdd = {4, 5, 6};
+
+      // Use insert() to add the entire 'toAdd' vector to 'existingVector'
+      existingVector.insert(existingVector.end(), toAdd.begin(), toAdd.end());
+
+      // Display the combined vector
+      for (int num : existingVector) {
+          std::cout << num << " ";
+      }
+
+      return 0;
+  }
+  ```
+
+  Resultant Output:
+  ```
+  1 2 3 4 5 6
+  ```
+---
 ### Copying Vectors:
 
 - **Whole Vector**: 
@@ -790,6 +1032,66 @@ Using smart pointers helps you write safer and more maintainable code, as they r
 
 </details>
 
+
+
+</ul>
+
+# Time Complexities
+
+<ul>
+
+
+<details>
+<summary>std::vector</summary>
+
+- `push_back()`: O(1) on average, O(n) worst-case (reallocation).
+- `pop_back()`: O(1)
+- `insert()`: O(n) worst-case.
+- `erase()`: O(n) worst-case.
+- `operator[]`, `at()`, `front()`, `back()`: O(1)
+- `size()`, `empty()`, `capacity()`: O(1)
+
+</details>
+
+<details>
+<summary>std::list (and other linked-list based containers)</summary>
+
+- `push_back()`, `push_front()`: O(1)
+- `pop_back()`, `pop_front()`: O(1)
+- `insert()`, `erase()`: O(1) with iterator, O(n) without.
+
+</details>
+
+<details>
+<summary>std::set, std::map, std::multiset, std::multimap (Red-Black Tree based)</summary>
+
+- `insert()`, `erase()`, `find()`: O(log n)
+- `begin()`, `end()`, `rbegin()`, `rend()`, `empty()`, `size()`: O(1)
+
+</details>
+
+<details>
+<summary>std::unordered_set, std::unordered_map, std::unordered_multiset, std::unordered_multimap (Hash Table based)</summary>
+
+- `insert()`, `erase()`, `find()`: O(1) average, O(n) worst-case (hash collisions).
+- `empty()`, `size()`: O(1)
+
+</details>
+
+<details>
+<summary>Algorithms</summary>
+
+- `std::sort()`: O(n log n) average and worst-case.
+- `std::nth_element()`: O(n) average.
+- `std::binary_search()`: O(log n)
+- `std::max_element()`, `std::min_element()`: O(n)
+- `std::find()`: O(n) for most containers.
+- `std::lower_bound()`, `std::upper_bound()`: O(log n) for sorted ranges.
+
+</details>
+
+
+</ul>
 
 
 
