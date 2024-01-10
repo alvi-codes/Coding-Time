@@ -434,11 +434,28 @@ In this example, the character `'5'` is converted to the integer `5` by subtract
   ```
 
 - **Part of a Vector**: 
-  - Copy a segment using iterators. The range is `[first, last)`, i.e., it includes the first element but excludes the last.
+  - Copy a segment using iterators. The range is `[first index, last index)`, i.e., it includes the first element but excludes the last.
   ```cpp
   std::vector<int> vec1 = {1, 2, 3, 4, 5};
   std::vector<int> subvec(vec1.begin() + 1, vec1.begin() + 4);  
   // the new vector is subvec = {2, 3, 4}
+
+
+
+  Index:   0    1    2    3    4
+  Vector: [1]  [2]  [3]  [4]  [5]
+           ^                       ^
+           |                       |
+         begin()                 end()
+
+  Example:
+
+          // nums = [-10 -3 0 5 9]
+      
+          int mid = nums.size()/2; // mid = 5/2 = 2
+
+          std::vector<int> left(nums.begin(), nums.begin() + mid); // -10 -3 
+          std::vector<int> right(nums.begin() + mid + 1, nums.end()); // 5 9 
   ```
 
 
