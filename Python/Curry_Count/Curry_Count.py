@@ -4,7 +4,7 @@ import pickle
 class CurryCounterApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Curry_Counter")
+        self.root.title("Curry_Count")
         self.root.configure(bg="#d9d9d9")  # Set background color to grey
 
         # Initialize food stock
@@ -12,18 +12,18 @@ class CurryCounterApp:
         self.load_data()
 
         # GUI Elements
-        self.label_item = tk.Label(root, text="Item:", bg="#d9d9d9")  # Set background color to grey
+        self.label_item = tk.Label(root, text="Curry:", bg="#d9d9d9")  # Set background color to grey
         self.label_quantity = tk.Label(root, text="Quantity:", bg="#d9d9d9")  # Set background color to grey
 
         self.entry_item = tk.Entry(root)
         self.entry_quantity = tk.Entry(root)
 
-        self.btn_enter = tk.Button(root, text="Enter", command=self.enter_item)
+        self.btn_enter = tk.Button(root, text="Enter Curry", command=self.enter_item)
         self.btn_display = tk.Button(root, text="Display Stock", command=self.display_stock)
 
         # Stock Display
         self.stock_display = tk.Text(root, height=10, width=30, bg="#d9d9d9")  # Set background color to grey
-        self.stock_display.insert(tk.END, "Current Food Stock:\n")
+        self.stock_display.insert(tk.END, "Current Curry Stock:\n")
         self.stock_display.config(state=tk.DISABLED)
 
         # Grid layout
@@ -81,12 +81,12 @@ class CurryCounterApp:
         self.entry_quantity.delete(0, tk.END)
 
     def save_data(self):
-        with open("curry_counter_data.pkl", "wb") as file:
+        with open("curry_counter_stock.pkl", "wb") as file:
             pickle.dump(self.food_stock, file)
 
     def load_data(self):
         try:
-            with open("curry_counter_data.pkl", "rb") as file:
+            with open("curry_counter_stock.pkl", "rb") as file:
                 self.food_stock = pickle.load(file)
         except FileNotFoundError:
             self.food_stock = {}
