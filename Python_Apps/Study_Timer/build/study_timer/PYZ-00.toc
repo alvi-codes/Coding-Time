@@ -1,4 +1,4 @@
-('H:\\Rough_Codes\\build\\study_timer\\PYZ-00.pyz',
+('H:\\GitHub\\Coding-Time\\Python_Apps\\Study_Timer\\build\\study_timer\\PYZ-00.pyz',
  [('_compat_pickle',
    'C:\\msys64\\mingw64\\bin\\lib\\_compat_pickle.py',
    'PYMODULE'),
