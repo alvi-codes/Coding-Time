@@ -25,10 +25,3 @@ The Visual Basic .NET folder contains my early projects and exercises in this pr
 
 VB.NET is an object-oriented, event-driven language developed by Microsoft as a successor to classic Visual Basic language, and is part of the .NET framework. I learned VB.NET as my first programming language and explored data structures, file handling, and OOP concepts. These projects showcase my understanding of the language and provide a reference for those interested in learning VB.NET.
 
-## **Contribution**
-
-If you find any bugs or have suggestions for improvements, feel free to open an issue or make a pull request. Your contribution is highly appreciated.
-
-## **Conclusion**
-
-I hope you find my repository helpful. If you have any questions or want to connect, feel free to reach out to me via my [email](mailto:sohailul.alvi@imperial.ac.uk?subject=[GitHub%20Repository%20Issue:%20Coding-Time]) or [profile on GitHub](https://github.com/alvi-codes).
